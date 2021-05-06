@@ -9,7 +9,8 @@ export default class ReviewsDAO {
       return
     } 
     try {
-      review = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews")
+      reviews = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews")             
+      reviews = await conn.db(process.env.RESTREVIEWS_NS).collection("reviews")
     } catch (e) {
       console.error(`Unable to establish collection handles in userDAO: ${e}`)
     }
@@ -33,7 +34,7 @@ export default class ReviewsDAO {
 
   static async updateReview(reviewId, userId, text, date) {
     try {
-      const updateResponse = await review.updateOne(
+      const updateResponse = await reviews.updateOne(
         { user_id: userId, _id: ObjectId(reviewId) },
         { $set: { text: text, date: date } },
       )
